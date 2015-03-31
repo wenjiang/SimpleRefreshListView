@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.maomao.client.ui.widget.CustomSwipeRefreshLayout
+        android:id="@+id/ptr_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.maomao.client.ui.widget.BaseBottomOperation
+                android:id="@+id/cbo_bottom_operation"
+                android:layout_alignParentBottom="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <ViewStub
+                android:clickable="false"
+                android:id="@+id/vs_empty"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:visibility="gone" />
+
+            <ListView
+                android:listSelector="@android:color/transparent"
+                android:smoothScrollbar="false"
+                android:layout_above="@id/cbo_bottom_operation"
+                android:id="@+id/lv_base"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </RelativeLayout>
+    </com.maomao.client.ui.widget.CustomSwipeRefreshLayout>
+</merge>

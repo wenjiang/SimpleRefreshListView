@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">refreshlistview</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="csr_text_state_normal">下拉刷新 </string>
+    <string name="csr_text_state_ready">释放更新</string>
+    <string name="csr_text_state_refresh">刷新中。。。</string>
+</resources>

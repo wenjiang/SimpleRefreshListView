@@ -1,0 +1,25 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+    </style>
+
+    <style name="TextViewBaseSingle" parent="TextViewBase">
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="TextViewBase">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">17.6sp</item>
+        <item name="android:textColor">#000</item>
+    </style>
+
+    <style name="CommonNoDataViewText" parent="TextViewBaseSingle">
+        <item name="android:textSize">15.4sp</item>
+        <item name="android:textColor">#a9a9a9</item>
+        <item name="android:text">暂无数据，请下拉刷新</item>
+    </style>
+</resources>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 通用的下拉刷新ListView -->
+    <declare-styleable name="commonlistview">
+        <attr name="commonlv__listSelector" format="reference" />
+        <attr name="commonlv__empty" format="reference" />
+        <attr name="commonlv__moreProgress" format="reference" />
+        <attr name="commonlv__progress" format="reference" />
+        <attr name="commonlv__listDivider" format="reference" />
+        <attr name="commonlv__listDividerHeight" format="dimension" />
+        <attr name="commonlv__listClipToPadding" format="boolean" />
+        <attr name="commonlv__listPadding" format="dimension" />
+        <attr name="commonlv__listPaddingTop" format="dimension" />
+        <attr name="commonlv__listPaddingBottom" format="dimension" />
+        <attr name="commonlv__listPaddingLeft" format="dimension" />
+        <attr name="commonlv__listPaddingRight" format="dimension" />
+        <attr name="commonlv__scrollbarStyle">
+            <flag name="insideOverlay" value="0x0" />
+            <flag name="insideInset" value="0x01000000" />
+            <flag name="outsideOverlay" value="0x02000000" />
+            <flag name="outsideInset" value="0x03000000" />
+        </attr>
+        <attr name="commonlv_mainLayoutID" format="reference" />
+        <attr name="commonlv_bottom_view" format="string" />
+    </declare-styleable>
+</resources>

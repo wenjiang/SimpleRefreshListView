@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_empty"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ededed">
+
+    <LinearLayout
+        android:id="@+id/ll_empty"
+        android:layout_centerInParent="true"
+        android:drawablePadding="10dp"
+        android:layout_marginTop="150dp"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:gravity="center_horizontal"
+            android:drawablePadding="12dp"
+            android:id="@+id/tv_empty"
+            style="@style/CommonNoDataViewText" />
+    </LinearLayout>
+</RelativeLayout>
