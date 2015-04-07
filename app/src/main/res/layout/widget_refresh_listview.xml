@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.maomao.client.ui.widget.CustomSwipeRefreshLayout
+    <com.zwb.ui.refreshlistview.ui.CustomSwipeRefreshLayout
         android:id="@+id/ptr_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -12,7 +12,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <com.maomao.client.ui.widget.BaseBottomOperation
+            <com.zwb.ui.refreshlistview.ui.BaseBottomOperation
                 android:id="@+id/cbo_bottom_operation"
                 android:layout_alignParentBottom="true"
                 android:layout_width="match_parent"
@@ -36,5 +36,5 @@
                 android:layout_height="match_parent" />
 
         </RelativeLayout>
-    </com.maomao.client.ui.widget.CustomSwipeRefreshLayout>
+    </com.zwb.ui.refreshlistview.ui.CustomSwipeRefreshLayout>
 </merge>

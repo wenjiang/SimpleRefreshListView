@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/refreshlistview.iml" filepath="$PROJECT_DIR$/refreshlistview.iml" />
+      <module fileurl="file://$PROJECT_DIR$/simplerefreshlistview.iml" filepath="$PROJECT_DIR$/simplerefreshlistview.iml" />
     </modules>
   </component>
 </project>
