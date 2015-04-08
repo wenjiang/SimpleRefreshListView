@@ -1,6 +1,5 @@
 package com.zwb.ui.refreshlistview.ui;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.ColorDrawable;
@@ -45,7 +44,6 @@ public class RefreshListView extends BaseRefreshAbsListView {
         commonListViewBottomView = array.getString(R.styleable.commonlistview_commonlv_bottom_view);
     }
 
-    @SuppressLint("WrongViewCast")
     @Override
     protected void initAbsListView(View view) {
         baseListView = (ListView) view.findViewById(R.id.lv_base);
@@ -103,16 +101,21 @@ public class RefreshListView extends BaseRefreshAbsListView {
     }
 
     /**
-     * 添加FooterView
+     * 添加进度条
      *
      * @param progressView 进度加载框
      */
-    public void addFooterView(View progressView) {
+    public void addProgressView(View progressView) {
         ((ListView) baseListView).addFooterView(progressView);
         setProgressView(progressView);
     }
 
-    public void addFooter(View footerView) {
+    /**
+     * 添加底部的View
+     *
+     * @param footerView 底部的View
+     */
+    public void addFooterView(View footerView) {
         ((ListView) baseListView).addFooterView(footerView);
     }
 

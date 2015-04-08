@@ -34,7 +34,7 @@ public class SampleAddMoreActivity extends ActionBarActivity implements OnMoreLi
         rlvContent = (RefreshListView) findViewById(R.id.rlv_content);
         adapter = new SampleAdapter(this, contactList);
         View progressView = LayoutInflater.from(this).inflate(R.layout.widget_progress, null);
-        rlvContent.addFooterView(progressView);
+        rlvContent.addProgressView(progressView);
         rlvContent.setAdapter(adapter);
         rlvContent.setupMoreListener(this, 0);
     }

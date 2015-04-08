@@ -40,5 +40,13 @@ public class SampleActivity extends Activity {
                 startActivity(intent);
             }
         });
+
+        btnCustomBottom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SampleActivity.this, SampleCustomBottomActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }

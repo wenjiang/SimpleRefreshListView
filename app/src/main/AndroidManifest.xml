@@ -19,6 +19,7 @@
 
         <activity android:name=".activity.SamplePullToRefreshActivity" />
         <activity android:name=".activity.SampleAddMoreActivity" />
+        <activity android:name=".activity.SampleCustomBottomActivity" />
     </application>
 
 </manifest>
