@@ -98,7 +98,7 @@ public abstract class BaseRefreshAbsListView extends FrameLayout implements AbsL
                     }
                 }
 
-                     onMoreListener.onMoreAsked(baseListView.getAdapter().getCount(), ITEM_LEFT_TO_LOAD_MORE, firstVisibleItem);
+                onMoreListener.onMoreAsked(baseListView.getAdapter().getCount(), ITEM_LEFT_TO_LOAD_MORE, firstVisibleItem);
             }
         }
         if (onScrollListener != null) {

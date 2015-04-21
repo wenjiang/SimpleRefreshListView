@@ -29,10 +29,10 @@ public class SampleCustomBottomActivity extends ActionBarActivity implements Cus
         Contact contact = new Contact();
         contact.setName("你好");
         contactList.add(contact);
-        SampleAdapter adapter = new SampleAdapter(this, contactList);
-        rlvContent.setAdapter(adapter);
         View view = getLayoutInflater().inflate(R.layout.view_bottom, null);
         rlvContent.addFooterView(view);
+        SampleAdapter adapter = new SampleAdapter(this, contactList);
+        rlvContent.setAdapter(adapter);
         rlvContent.setRefreshListener(this);
     }
 

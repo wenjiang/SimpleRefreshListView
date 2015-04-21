@@ -7,6 +7,7 @@ import android.view.View;
 
 import com.zwb.ui.refreshlistview.R;
 import com.zwb.ui.refreshlistview.model.Contact;
+import com.zwb.ui.refreshlistview.ui.CustomSwipeRefreshLayout;
 import com.zwb.ui.refreshlistview.ui.OnMoreListener;
 import com.zwb.ui.refreshlistview.ui.RefreshListView;
 import com.zwb.ui.refreshlistview.ui.SampleAdapter;
@@ -17,7 +18,7 @@ import java.util.List;
 /**
  * Created by pc on 2015/4/7.
  */
-public class SampleAddMoreActivity extends ActionBarActivity implements OnMoreListener {
+public class SampleAddMoreActivity extends ActionBarActivity implements OnMoreListener, CustomSwipeRefreshLayout.OnRefreshListener {
     private List<Contact> contactList;
     private RefreshListView rlvContent;
     private SampleAdapter adapter;
@@ -37,6 +38,7 @@ public class SampleAddMoreActivity extends ActionBarActivity implements OnMoreLi
         rlvContent.addProgressView(progressView);
         rlvContent.setAdapter(adapter);
         rlvContent.setupMoreListener(this, 0);
+        rlvContent.setRefreshListener(this);
     }
 
 
@@ -46,5 +48,10 @@ public class SampleAddMoreActivity extends ActionBarActivity implements OnMoreLi
         contact.setName("我好");
         contactList.add(contact);
         adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onRefresh() {
+
     }
 }
