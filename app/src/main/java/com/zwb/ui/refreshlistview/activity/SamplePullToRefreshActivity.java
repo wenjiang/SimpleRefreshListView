@@ -29,7 +29,7 @@ public class SamplePullToRefreshActivity extends ActionBarActivity implements Cu
         contactList = new ArrayList<Contact>();
         RefreshListView rlvContent = (RefreshListView) findViewById(R.id.rlv_content);
         View progressView = LayoutInflater.from(this).inflate(R.layout.widget_progress, null);
-        rlvContent.addProgressView(progressView);
+        rlvContent.addProgressView(progressView, rlvContent.BOTTOM);
         adapter = new SampleAdapter(this, contactList);
         rlvContent.setAdapter(adapter);
         rlvContent.setRefreshListener(this);

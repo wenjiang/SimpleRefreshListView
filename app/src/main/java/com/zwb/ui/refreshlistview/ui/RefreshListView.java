@@ -23,6 +23,9 @@ public class RefreshListView extends BaseRefreshAbsListView {
 
     private String commonListViewBottomView;
 
+    public final int TOP = 0;
+    public final int BOTTOM = 1;
+
     public RefreshListView(Context context) {
         super(context);
     }
@@ -105,8 +108,14 @@ public class RefreshListView extends BaseRefreshAbsListView {
      *
      * @param progressView 进度加载框
      */
-    public void addProgressView(View progressView) {
-        ((ListView) baseListView).addFooterView(progressView);
+    public void addProgressView(View progressView, int location) {
+        if (location == TOP) {
+            ((ListView) baseListView).addHeaderView(progressView);
+        }
+
+        if (location == BOTTOM) {
+            ((ListView) baseListView).addFooterView(progressView);
+        }
         setProgressView(progressView);
     }
 
