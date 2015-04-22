@@ -361,6 +361,7 @@ public abstract class BaseRefreshAbsListView extends FrameLayout implements AbsL
      * @param adapter ListAdapter
      */
     public void setAdapter(ListAdapter adapter) {
+        ptrLayout.setPullEnabled(true);
         if (emptyView != null) {
             baseListView.setEmptyView(emptyView);
         }

@@ -75,7 +75,7 @@ public class CustomSwipeRefreshLayout extends ViewGroup {
     private boolean checkValidMotionFlag = true;
     private int returnToOriginalTimeout = RETURN_TO_ORIGINAL_POSITION_TIMEOUT;
     private int refreshCompleteTimeout = 0;
-    private boolean isPull = true;
+    private boolean isEnabled = false;
 
     //是否返回至原始状态
     private boolean returningToStart;
@@ -656,11 +656,13 @@ public class CustomSwipeRefreshLayout extends ViewGroup {
             }
         }
 
-        if (!returningToStart && !canChildScrollUp()) {
-            handled = onTouchEvent(ev);
-        } else {
-            // keep updating last Y position when the event is not intercepted!
-            prevY = ev.getY();
+        if (isEnabled) {
+            if (!returningToStart && !canChildScrollUp()) {
+                handled = onTouchEvent(ev);
+            } else {
+                // keep updating last Y position when the event is not intercepted!
+                prevY = ev.getY();
+            }
         }
 
         return !handled ? super.onInterceptTouchEvent(ev) : handled;
@@ -673,9 +675,6 @@ public class CustomSwipeRefreshLayout extends ViewGroup {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if (!isPull) {
-            return false;
-        }
         final int action = event.getAction();
         boolean handled = false;
 
@@ -905,7 +904,12 @@ public class CustomSwipeRefreshLayout extends ViewGroup {
         }
     }
 
-    public void isPull(boolean isPull) {
-        this.isPull = isPull;
+    /**
+     * 设置是否允许下拉
+     *
+     * @param isEnabled 是否下拉
+     */
+    public void setPullEnabled(boolean isEnabled) {
+        this.isEnabled = isEnabled;
     }
 }
