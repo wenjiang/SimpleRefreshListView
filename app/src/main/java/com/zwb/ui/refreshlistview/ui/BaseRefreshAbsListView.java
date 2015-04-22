@@ -1,5 +1,6 @@
 package com.zwb.ui.refreshlistview.ui;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.database.DataSetObserver;
@@ -26,7 +27,6 @@ public abstract class BaseRefreshAbsListView extends FrameLayout implements AbsL
     //底部加载框加载的最大数据
     protected int ITEM_LEFT_TO_LOAD_MORE = 1;
 
-    protected int commonListViewMainLayoutId;
     protected CustomSwipeRefreshLayout ptrLayout;
     protected AbsListView baseListView;
     protected AbsListView.OnScrollListener onScrollListener;
@@ -40,22 +40,27 @@ public abstract class BaseRefreshAbsListView extends FrameLayout implements AbsL
     protected int paddingRight;
     protected int scrollbarStyle;
     protected int selector;
-    protected View progress;
+    protected View progressView;
     protected ViewStub emptyView;
     protected int emptyId;
     protected OnMoreListener onMoreListener;
     protected boolean isLoadingMore;
-    protected BaseBottomOperation bottomOperation;
+    protected BaseBottomOperationView bottomOperationView;
+    protected int bottomViewId;
+    protected int progressViewId;
+    private Context context;
 
     public BaseRefreshAbsListView(Context context) {
         super(context);
 
+        this.context = context;
         initView();
     }
 
     public BaseRefreshAbsListView(Context context, AttributeSet attrs) {
         super(context, attrs);
 
+        this.context = context;
         initAttrs(attrs);
         initView();
     }
@@ -63,6 +68,7 @@ public abstract class BaseRefreshAbsListView extends FrameLayout implements AbsL
     public BaseRefreshAbsListView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
 
+        this.context = context;
         initAttrs(attrs);
         initView();
     }
@@ -90,11 +96,11 @@ public abstract class BaseRefreshAbsListView extends FrameLayout implements AbsL
         if ((((totalItemCount - firstVisibleItem - visibleItemCount) == ITEM_LEFT_TO_LOAD_MORE) || (totalItemCount - firstVisibleItem - visibleItemCount) == 0 && totalItemCount > visibleItemCount) && !isLoadingMore) {
             isLoadingMore = true;
             if (onMoreListener != null) {
-                if (progress != null) {
+                if (progressView != null) {
                     if (totalItemCount <= 2) {
-                        progress.setVisibility(GONE);
+                        progressView.setVisibility(GONE);
                     } else {
-                        progress.setVisibility(VISIBLE);
+                        progressView.setVisibility(VISIBLE);
                     }
                 }
 
@@ -119,13 +125,6 @@ public abstract class BaseRefreshAbsListView extends FrameLayout implements AbsL
     public abstract void clear();
 
     /**
-     * 隐藏加载框
-     */
-    public void hideProgress() {
-        progress.setVisibility(View.GONE);
-    }
-
-    /**
      * 初始化View
      */
     private void initView() {
@@ -134,7 +133,7 @@ public abstract class BaseRefreshAbsListView extends FrameLayout implements AbsL
             return;
         }
 
-        View view = LayoutInflater.from(getContext()).inflate(commonListViewMainLayoutId, this);
+        View view = LayoutInflater.from(getContext()).inflate(R.layout.widget_refresh_listview, this);
         ptrLayout = (CustomSwipeRefreshLayout) view.findViewById(R.id.ptr_layout);
         ptrLayout.setEnabled(false);
 
@@ -150,11 +149,22 @@ public abstract class BaseRefreshAbsListView extends FrameLayout implements AbsL
         // OPTIONAL:  Timeout to show the refresh complete information on the refreshing head.
         ptrLayout.setRefreshCompleteTimeout(50);
 
-        emptyView = (ViewStub) view.findViewById(R.id.vs_empty);
-        emptyView.setLayoutResource(R.layout.view_status_empty);
-        emptyView.inflate();
+        if (emptyId != 0) {
+            emptyView = (ViewStub) view.findViewById(R.id.vs_empty);
+            emptyView.setLayoutResource(R.layout.view_status_empty);
+            emptyView.inflate();
+            emptyView.setVisibility(GONE);
+        }
 
-        emptyView.setVisibility(GONE);
+        if (bottomViewId != 0) {
+            bottomOperationView = (BaseBottomOperationView) view.findViewById(R.id.cbo_bottom_operation);
+            bottomOperationView.init(bottomViewId);
+            bottomOperationView.setVisibility(GONE);
+        }
+
+        if (progressViewId != 0) {
+            progressView = ((Activity) context).getLayoutInflater().inflate(progressViewId, null);
+        }
 
         initAbsListView(view);
     }
@@ -205,12 +215,19 @@ public abstract class BaseRefreshAbsListView extends FrameLayout implements AbsL
      */
     public void showProgress() {
         hideList();
-        if (emptyId != 0) {
+        if (emptyId != -1) {
             emptyView.setVisibility(INVISIBLE);
-            if (progress != null) {
-                progress.setVisibility(VISIBLE);
+            if (progressView != null) {
+                progressView.setVisibility(VISIBLE);
             }
         }
+    }
+
+    /**
+     * 隐藏底部加载框
+     */
+    public void hideProgress() {
+        progressView.setVisibility(View.GONE);
     }
 
     /**
@@ -236,8 +253,8 @@ public abstract class BaseRefreshAbsListView extends FrameLayout implements AbsL
      *
      * @return 是否显示
      */
-    public boolean isProgressShow() {
-        return progress.getVisibility() == VISIBLE;
+    public boolean isProgressShow(int location) {
+        return progressView.getVisibility() == VISIBLE;
     }
 
     /**
@@ -275,7 +292,8 @@ public abstract class BaseRefreshAbsListView extends FrameLayout implements AbsL
             scrollbarStyle = a.getInt(R.styleable.commonlistview_commonlv__scrollbarStyle, -1);
             selector = a.getResourceId(R.styleable.commonlistview_commonlv__listSelector, 0);
             emptyId = a.getResourceId(R.styleable.commonlistview_commonlv__empty, 0);
-
+            bottomViewId = a.getResourceId(R.styleable.commonlistview_commonlv_bottom_view, 0);
+            progressViewId = a.getResourceId(R.styleable.commonlistview_commonlv__moreProgress, 0);
             initCustomAttrs(attrs, a);
         } finally {
             a.recycle();
@@ -357,8 +375,9 @@ public abstract class BaseRefreshAbsListView extends FrameLayout implements AbsL
                 ptrLayout.setRefreshing(false);
                 if (baseListView.getAdapter().getCount() == 0 && emptyView != null) {
                     emptyView.setVisibility(VISIBLE);
-                    if (progress != null) {
-                        progress.setVisibility(GONE);
+
+                    if (progressView != null) {
+                        progressView.setVisibility(GONE);
                     }
                 } else if (emptyView != null) {
                     emptyView.setVisibility(GONE);
@@ -366,8 +385,9 @@ public abstract class BaseRefreshAbsListView extends FrameLayout implements AbsL
             }
         });
         if ((adapter == null || adapter.getCount() == 0) && emptyView != null) {
-            if (progress != null) {
-                progress.setVisibility(GONE);
+
+            if (progressView != null) {
+                progressView.setVisibility(GONE);
             }
             if (((ListView) baseListView).getHeaderViewsCount() > 0) {
                 emptyView.setVisibility(View.GONE);
@@ -405,16 +425,6 @@ public abstract class BaseRefreshAbsListView extends FrameLayout implements AbsL
     }
 
     /**
-     * 设置进度加载框
-     *
-     * @param progressView 进度加载框
-     */
-    protected void setProgressView(View progressView) {
-        progress = progressView;
-        progress.setVisibility(GONE);
-    }
-
-    /**
      * 设置加载更多
      *
      * @param listener 监听事件
@@ -423,6 +433,9 @@ public abstract class BaseRefreshAbsListView extends FrameLayout implements AbsL
     public void setupMoreListener(OnMoreListener listener, int max) {
         this.onMoreListener = listener;
         ITEM_LEFT_TO_LOAD_MORE = max;
+
+        progressView.setVisibility(VISIBLE);
+        ((ListView) baseListView).addFooterView(progressView);
     }
 
     /**

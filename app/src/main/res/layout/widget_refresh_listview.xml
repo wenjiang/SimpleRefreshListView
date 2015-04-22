@@ -12,7 +12,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <com.zwb.ui.refreshlistview.ui.BaseBottomOperation
+            <com.zwb.ui.refreshlistview.ui.BaseBottomOperationView
                 android:id="@+id/cbo_bottom_operation"
                 android:layout_alignParentBottom="true"
                 android:layout_width="match_parent"

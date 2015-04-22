@@ -18,30 +18,30 @@ import java.lang.reflect.Method;
  *
  * @author wenbiao_zheng
  */
-public class BaseBottomOperation extends LinearLayout {
+public class BaseBottomOperationView extends LinearLayout {
     private Context context;
 
-    public BaseBottomOperation(Context context) {
+    public BaseBottomOperationView(Context context) {
         super(context);
 
         this.context = context;
     }
 
-    public BaseBottomOperation(Context context, AttributeSet attrs) {
+    public BaseBottomOperationView(Context context, AttributeSet attrs) {
         super(context, attrs);
 
         this.context = context;
     }
 
     @SuppressLint("NewApi")
-    public BaseBottomOperation(Context context, AttributeSet attrs, int defStyleAttr) {
+    public BaseBottomOperationView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
         this.context = context;
     }
 
     @SuppressLint("NewApi")
-    public BaseBottomOperation(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public BaseBottomOperationView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
 
         this.context = context;

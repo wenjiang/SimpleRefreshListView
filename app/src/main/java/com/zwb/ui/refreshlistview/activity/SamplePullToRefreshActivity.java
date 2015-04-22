@@ -2,10 +2,8 @@ package com.zwb.ui.refreshlistview.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.zwb.ui.refreshlistview.R;
 import com.zwb.ui.refreshlistview.model.Contact;
@@ -28,8 +26,6 @@ public class SamplePullToRefreshActivity extends ActionBarActivity implements Cu
 
         contactList = new ArrayList<Contact>();
         RefreshListView rlvContent = (RefreshListView) findViewById(R.id.rlv_content);
-        View progressView = LayoutInflater.from(this).inflate(R.layout.widget_progress, null);
-        rlvContent.addProgressView(progressView, rlvContent.BOTTOM);
         adapter = new SampleAdapter(this, contactList);
         rlvContent.setAdapter(adapter);
         rlvContent.setRefreshListener(this);

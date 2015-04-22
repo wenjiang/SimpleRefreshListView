@@ -595,8 +595,6 @@ public class CustomSwipeRefreshLayout extends ViewGroup {
                             getMeasuredHeight() - getPaddingTop() - getPaddingBottom(),
                             MeasureSpec.EXACTLY));
         }
-
-
     }
 
     /**
@@ -658,13 +656,11 @@ public class CustomSwipeRefreshLayout extends ViewGroup {
             }
         }
 
-        if (isEnabled()) {
-            if (!returningToStart && !canChildScrollUp()) {
-                handled = onTouchEvent(ev);
-            } else {
-                // keep updating last Y position when the event is not intercepted!
-                prevY = ev.getY();
-            }
+        if (!returningToStart && !canChildScrollUp()) {
+            handled = onTouchEvent(ev);
+        } else {
+            // keep updating last Y position when the event is not intercepted!
+            prevY = ev.getY();
         }
 
         return !handled ? super.onInterceptTouchEvent(ev) : handled;

@@ -5,12 +5,11 @@ import android.content.res.TypedArray;
 import android.graphics.drawable.ColorDrawable;
 import android.util.AttributeSet;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import com.zwb.ui.refreshlistview.R;
-import com.zwb.ui.refreshlistview.utils.ViewUtil;
+import com.zwb.ui.refreshlistview.exception.BaseListViewException;
 
 
 /**
@@ -20,12 +19,6 @@ import com.zwb.ui.refreshlistview.utils.ViewUtil;
  * @author wenbiao_zheng
  */
 public class RefreshListView extends BaseRefreshAbsListView {
-
-    private String commonListViewBottomView;
-
-    public final int TOP = 0;
-    public final int BOTTOM = 1;
-
     public RefreshListView(Context context) {
         super(context);
     }
@@ -41,17 +34,11 @@ public class RefreshListView extends BaseRefreshAbsListView {
     @Override
     protected void initCustomAttrs(AttributeSet attrs, TypedArray array) {
         super.initCustomAttrs(attrs, array);
-
-        commonListViewMainLayoutId = array.getResourceId(R.styleable.commonlistview_commonlv_mainLayoutID, R.layout.widget_refresh_listview);
-        // TODO: commonListViewBottomView在Attr上定义为String属性，没有相应的IDE提示
-        commonListViewBottomView = array.getString(R.styleable.commonlistview_commonlv_bottom_view);
     }
 
     @Override
     protected void initAbsListView(View view) {
         baseListView = (ListView) view.findViewById(R.id.lv_base);
-        bottomOperation = (BaseBottomOperation) view.findViewById(R.id.cbo_bottom_operation);
-        bottomOperation.setVisibility(View.GONE);
 
         if (baseListView != null) {
             baseListView.setClipToPadding(clipToPadding);
@@ -104,32 +91,6 @@ public class RefreshListView extends BaseRefreshAbsListView {
     }
 
     /**
-     * 添加进度条
-     *
-     * @param progressView 进度加载框
-     */
-    public void addProgressView(View progressView, int location) {
-        if (location == TOP) {
-            ((ListView) baseListView).addHeaderView(progressView);
-        }
-
-        if (location == BOTTOM) {
-            ((ListView) baseListView).addFooterView(progressView);
-        }
-        setProgressView(progressView);
-    }
-
-    /**
-     * 添加底部的View
-     *
-     * @param footerView 底部的View
-     */
-    public void addFooterView(View footerView) {
-        ((ListView) baseListView).addFooterView(footerView);
-    }
-
-
-    /**
      * 添加HeaderView
      *
      * @param headerView ListView的HeaderView
@@ -138,13 +99,21 @@ public class RefreshListView extends BaseRefreshAbsListView {
         ((ListView) baseListView).addHeaderView(headerView);
     }
 
+    public void addFooterView(View footerView) throws BaseListViewException {
+        if (progressViewId != 0 && ((ListView) baseListView).getFooterViewsCount() == 1) {
+            throw new BaseListViewException("You must call this method before setupMoreListener");
+        }
+
+        ((ListView) baseListView).addFooterView(footerView);
+    }
+
     /**
      * 删除FooterView
      *
-     * @param view FooterView
+     * @param footerView FooterView
      */
-    public void removeFooterView(View view) {
-        ((ListView) baseListView).removeFooterView(view);
+    public void removeFooterView(View footerView) {
+        ((ListView) baseListView).removeFooterView(footerView);
     }
 
     /**
@@ -178,7 +147,7 @@ public class RefreshListView extends BaseRefreshAbsListView {
      * @param visibility 可见性
      */
     public void setBottomVisibility(int visibility) {
-        bottomOperation.setVisibility(visibility);
+        bottomOperationView.setVisibility(visibility);
     }
 
     /**
@@ -187,20 +156,9 @@ public class RefreshListView extends BaseRefreshAbsListView {
      * @param id 底部操作栏的布局id
      * @return 底部操作栏组件
      */
-    public BaseBottomOperation initBottom(int id) {
-        bottomOperation.setVisibility(View.VISIBLE);
-        bottomOperation.init(id);
-        return bottomOperation;
-    }
-
-    /**
-     * 初始化底部操作栏
-     * 使用反射生成底部View
-     */
-    public void initBottom() {
-        View view = ViewUtil.reflectView(getContext(), commonListViewBottomView);
-        ViewGroup.LayoutParams params = bottomOperation.getLayoutParams();
-        bottomOperation.addView(view, params);
-        bottomOperation.setVisibility(View.VISIBLE);
+    private BaseBottomOperationView initBottom(int id) {
+        bottomOperationView.setVisibility(View.VISIBLE);
+        bottomOperationView.init(id);
+        return bottomOperationView;
     }
 }

@@ -5,7 +5,6 @@
         <attr name="commonlv__listSelector" format="reference" />
         <attr name="commonlv__empty" format="reference" />
         <attr name="commonlv__moreProgress" format="reference" />
-        <attr name="commonlv__progress" format="reference" />
         <attr name="commonlv__listDivider" format="reference" />
         <attr name="commonlv__listDividerHeight" format="dimension" />
         <attr name="commonlv__listClipToPadding" format="boolean" />
@@ -20,7 +19,6 @@
             <flag name="outsideOverlay" value="0x02000000" />
             <flag name="outsideInset" value="0x03000000" />
         </attr>
-        <attr name="commonlv_mainLayoutID" format="reference" />
-        <attr name="commonlv_bottom_view" format="string" />
+        <attr name="commonlv_bottom_view" format="reference" />
     </declare-styleable>
 </resources>

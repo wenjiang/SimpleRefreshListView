@@ -2,8 +2,6 @@ package com.zwb.ui.refreshlistview.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.view.LayoutInflater;
-import android.view.View;
 
 import com.zwb.ui.refreshlistview.R;
 import com.zwb.ui.refreshlistview.model.Contact;
@@ -33,11 +31,9 @@ public class SampleAddMoreActivity extends ActionBarActivity implements OnMoreLi
         contact.setName("我好");
         contactList.add(contact);
         rlvContent = (RefreshListView) findViewById(R.id.rlv_content);
-        adapter = new SampleAdapter(this, contactList);
-        View progressView = LayoutInflater.from(this).inflate(R.layout.widget_progress, null);
-        rlvContent.addProgressView(progressView, rlvContent.TOP);
-        rlvContent.setAdapter(adapter);
         rlvContent.setupMoreListener(this, 0);
+        adapter = new SampleAdapter(this, contactList);
+        rlvContent.setAdapter(adapter);
         rlvContent.setRefreshListener(this);
     }
 
@@ -52,6 +48,9 @@ public class SampleAddMoreActivity extends ActionBarActivity implements OnMoreLi
 
     @Override
     public void onRefresh() {
-
+        Contact contact = new Contact();
+        contact.setName("我好");
+        contactList.add(contact);
+        adapter.notifyDataSetChanged();
     }
 }

@@ -8,7 +8,10 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context=".MainActivity">
 
-    <com.zwb.ui.refreshlistview.ui.RefreshListView
+    <com.zwb.ui.refreshlistview.ui.RefreshListView xmlns:commonlistview="http://schemas.android.com/apk/res-auto"
+        commonlistview:commonlv_bottom_view="@layout/view_bottom"
+        commonlistview:commonlv__empty="@layout/view_status_empty"
+        commonlistview:commonlv__moreProgress="@layout/widget_progress"
         android:id="@+id/rlv_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
